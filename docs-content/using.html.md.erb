@@ -1,15 +1,71 @@
 ---
-title: Using YOUR-PRODUCT-NAME
+title: Using Sentry Service Broker for PCF
 owner: Partners
 ---
 
-This topic describes how to use YOUR-PRODUCT-NAME.
+This topic describes how to use Sentry Service Broker for PCF.
 
-##<a id='using'></a> Using YOUR-PRODUCT-NAME
+##<a id='using'></a> Using Sentry Service Broker for PCF
 
-**This topic should include any instructions for how to use the service or dashboard created by the tile. 
-Give procedures for how to perform the different functions offered by your product and provide screenshots where necessary.** 
+To use the Sentry Service Broker for PCF with an application, create a service instance and bind the service instance
+to your application. For more information on managing service instances, see <a href="http://docs.pivotal.io/pivotalcf/devguide/services/managing-services.html" target="_blank">Managing Service Instances with the cf CLI</a>.
 
-**You can also use this section to include information about Architecture and Troubleshooting for known errors. 
-If you include a Troubleshooting section, follow the Symptom/Explanation format used in the 
-[Okta Troubleshooting](http://docs.pivotal.io/p-identity/okta/troubleshooting.html) topic**.
+After the Sentry tile is installed, you can see the `sentry-service-broker` and its service plans appear in your PCF marketplace. Run `cf marketplace` to see the service listing:
+<pre class="terminal">
+$ cf marketplace
+Getting services from marketplace in org sentry / space sentry as admin...
+OK
+service                plans   description
+sentry-service-broker  free    Free hobbyist plan
+</pre>
+
+### Create a Service Instance
+
+To provision a Sentry service instance, run `cf create-service`. For example:
+
+<pre class="terminal">
+$ cf create-service sentry-service-broker free my-sentry-service
+Getting services from marketplace in org sentry / space sentry as admin...
+OK
+name                service                 plan   bound apps   last operation
+my-sentry-service   sentry-service-broker   free                create succeeded
+</pre>
+
+Run the `cf services` command to view the creation status. This command displays a list of all your service instances. To view the status of a specific service instance, run `cf service NAME-OF-YOUR-SERVICE`.
+### Bind an Application to a Service Instance
+
+After your Sentry service instance is created, run `cf bind-service` to bind the service to your application:
+
+<pre class="terminal">
+$ cf bind-service my-app my-sentry-service
+</pre>
+### Restage or Restart Your Application
+
+To enable your application to access the service instance, run `cf restage` or `cf restart` to restage or restart your application.
+### Obtain Service Instance Access Credentials
+
+After a service instance is bound to an application, Sentry credentials are stored in the environment variables of the application. Run `cf env APP-NAME` to display the environment variables.
+
+You can find the credentials in the <a href="http://docs.pivotal.io/pivotalcf/devguide/deploy-apps/environment-variable.html#VCAP-SERVICES" target="_blank">VCAP_SERVICES</a> key.
+
+<pre class="terminal">
+$ cf env my-app
+Getting env variables for app my-app in org sentry / space sentry as admin...
+OK
+
+System-Provided:
+{
+ "VCAP_SERVICES": {
+  "sentry-service-broker": [
+   {
+     "credentials": {
+      "uri": "YOUR_SENTRY_DSN",
+     },
+   }
+  ]
+ }
+}
+...
+</pre>
+
+Finally, you can use the provided Sentry DSN to configure the applicable Sentry SDK. See the [Sentry documentation site](https://docs.sentry.io/) for more information.
