@@ -4,29 +4,28 @@ owner: Partners
 ---
 
 <p class="note warning">
-<strong>WARNING!!! </strong>
+<strong>WARNING!!!</strong>
 The Sentry Service Broker for PCF tile is currently in beta and is intended for evaluation and test purposes only.
 Do not use this product in a PCF production environment.
 </p>
 
 This documentation describes the Sentry Service Broker for Pivotal Cloud Foundry (PCF). The Sentry Service
-Broker for PCF enables developers to ___TODO___.
+Broker for PCF enables developers to automatically provision a Sentry SaaS account so that developers can more
+seamlessly use Sentry on PCF.
 
 ## <a id='overview'></a>Overview
 
-The Sentry Service Broker for PCF registers a service broker with PCF and exposes its service plans on the
+The Sentry Service Broker for PCF registers a service broker with PCF and exposes a free service plan on the
 Marketplace. Developers can then create service plan instances using Apps Manager or the Cloud Foundry Command
 Line Interface (cf CLI) and bind them to their apps.
-
-Creating an Sentry for PCF service instance and binding it to an app TODO...
 
 ## <a id='features'></a>Key Features
 
 Sentry Service Broker for PCF includes the following key features:
 
-* TODO: We're only suppose to list integration features, so I guess something
-    about how it creates and links projects, and puts the DSN in your service
-    if you desire (bind)
+* The ability to report PCF app errors to the Sentry error management platform
+* Automated creation of Sentry SaaS account when service plan instance is created
+* Single sign-on to Sentry via PCF Apps Manager dashboard
 
 ## <a id="snapshot"></a>Product Snapshot
 
@@ -63,7 +62,10 @@ The following table provides version and version-support information about PRODU
 
 ## <a id="limitations"></a>Limitations
 
-TODO: We only support free accounts for now?
+* At this time only free Sentry accounts are supported by the service broker
+  If you wish to upgrade your account please reach out to [Sentry Cloud Foundry Support](mailto:cloudfoundry@sentry.io)
+* In order to use the Sentry service broker, you will need to obtain Sentry API credentials. Please email
+  us at [Sentry Cloud Foundry Support](mailto:cloudfoundry@sentry.io)
 
 ## <a id="feedback"></a>Feedback
 
