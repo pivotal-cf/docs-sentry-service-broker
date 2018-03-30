@@ -8,9 +8,10 @@ This topic describes how to use Sentry Service Broker for Pivotal Cloud Foundry 
 ##<a id='using'></a> Using Sentry Service Broker for PCF
 
 To use the Sentry Service Broker for PCF with an application, create a service instance and bind the service instance
-to your application. For more information on managing service instances, see <a href="http://docs.pivotal.io/pivotalcf/devguide/services/managing-services.html" target="_blank">Managing Service Instances with the cf CLI</a>.
+to your application. For more information on managing service instances, see [Managing Service Instances with the cf CLI](http://docs.pivotal.io/pivotalcf/devguide/services/managing-services.html).
 
 After the Sentry tile is installed, you can see the `sentry-service-broker` and its service plans appear in your PCF marketplace. Run `cf marketplace` to see the service listing:
+
 <pre class="terminal">
 $ cf marketplace
 Getting services from marketplace in org sentry / space sentry as admin...
@@ -32,6 +33,7 @@ my-sentry-service   sentry-service-broker   free                create succeeded
 </pre>
 
 Run the `cf services` command to view the creation status. This command displays a list of all your service instances. To view the status of a specific service instance, run `cf service NAME-OF-YOUR-SERVICE`.
+
 ### Bind an Application to a Service Instance
 
 After your Sentry service instance is created, run `cf bind-service` to bind the service to your application:
@@ -39,14 +41,16 @@ After your Sentry service instance is created, run `cf bind-service` to bind the
 <pre class="terminal">
 $ cf bind-service my-app my-sentry-service
 </pre>
+
 ### Restage or Restart Your Application
 
 To enable your application to access the service instance, run `cf restage` or `cf restart` to restage or restart your application.
+
 ### Obtain Service Instance Access Credentials
 
 After a service instance is bound to an application, Sentry credentials are stored in the environment variables of the application. Run `cf env APP-NAME` to display the environment variables.
 
-You can find the credentials in the <a href="http://docs.pivotal.io/pivotalcf/devguide/deploy-apps/environment-variable.html#VCAP-SERVICES" target="_blank">VCAP_SERVICES</a> key.
+You can find the credentials in the [VCAP_SERVICES](http://docs.pivotal.io/pivotalcf/devguide/deploy-apps/environment-variable.html#VCAP-SERVICES) key.
 
 <pre class="terminal">
 $ cf env my-app
